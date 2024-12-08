@@ -1,0 +1,77 @@
+.cover {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  height: 100%;
+  width: 50%;
+  z-index: 98;
+  transition: all 1s ease;
+  transform-origin: left;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+#flip:checked ~ .cover {
+  transform: rotateY(-180deg);
+}
+
+#flip:checked ~ .forms .login-form {
+  pointer-events: none;
+}
+
+.cover .front,
+.cover .back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.cover .back {
+  transform: rotateY(180deg);
+}
+
+.cover img {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  z-index: 10;
+}
+
+.forms {
+  height: 100%;
+  width: 100%;
+  background: #fff;
+}
+ .login-form, .signup-form {
+  width: calc(100% / 2 - 25px);
+}
+
+#flip {
+  display: none;
+}
+
+@media (max-width: 730px) {
+  .cover {
+    display: none;
+  }
+
+ .login-form,
+ .signup-form {
+    width: 100%;
+  }
+
+ .signup-form {
+    display: none;
+  }
+
+  #flip:checked ~ .forms .signup-form {
+    display: block;
+  }
+
+  #flip:checked ~ .forms .login-form {
+    display: none;
+  }
+}
