@@ -12,7 +12,7 @@ const setupServer = async () => {
     await AppDataSouce.initialize();
     const migrations = await AppDataSouce.runMigrations();
     if (migrations.length > 0) {
-      console.log("Migrations applied:", migrations.map(m => m.name));
+      console.log("Migrations applied:");
     } else {
       console.log("No pending migrations found.");
     }
@@ -42,7 +42,7 @@ const setupServer = async () => {
       AppDataSouce.destroy(); // Close DB connection
       process.exit(0); // Exit cleanly
     });
-    
+
   } catch (error) {
     console.error("Error setting up the server:", error);
     process.exit(1); // Exit if there's an error
