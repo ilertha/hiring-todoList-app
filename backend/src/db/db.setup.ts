@@ -1,6 +1,6 @@
 import { DataSource } from "typeorm";
 import { SnakeNamingStrategy } from "typeorm-naming-strategies";
-import { UserEntity, TodoListEntity } from "../entities";
+import { UserEntity, ListEntity } from "../entity";
 import { Env } from "../env";
 
 export const AppDataSouce = new DataSource({
@@ -12,7 +12,7 @@ export const AppDataSouce = new DataSource({
   port: Env.dbPort,
   logging: false,
   synchronize: false,
-  entities: [UserEntity, TodoListEntity],
+  entities: [UserEntity, ListEntity],
   entitySkipConstructor: true,
   namingStrategy: new SnakeNamingStrategy(),
 });

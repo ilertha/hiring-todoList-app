@@ -3,21 +3,21 @@ class CustomLogger {
     console.log(...args);
   }
 
-  info(...args: any) {
+  info(...args:any) {
     console.info(...args);
   }
 
-  error(...args: any) {
-    console.error(...args);
+  error(...args:any) {
+    console.group(...args)
   }
 
-  group(...args: any) {
-    console.group(...args);
+  group(...args:any) {
+    console.group(...args)
   }
 
   groupEnd() {
-    console.groupEnd();
+    console.groupEnd()
   }
 }
 
-export const Logger = new CustomLogger();
+export const Logger = new CustomLogger()

@@ -1,71 +1,26 @@
+/* Importing Poppins font from Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 
+/* Defining root-level custom properties for default (light) theme */
 :root {
-    --background-color: #F9FAFB;
-    --text-color: #083143;
-    --new-task-background: #0fbc8f;
-    --logo-filter: invert(1);
-    --tab-bar-color: #083143;
-    --completed-button-color: green;
-    --completed-button-hover-color: #083143;
-    --modal-button-border-color: #083143;
-  }
-  
-  [data-theme="dark"] {
-    --background-color: #083143;
-    --text-color: #F9FAFB;
-    --new-task-background: #0fbc8f;
-    --logo-filter: invert(0);
-    --tab-bar-color: #041821;
-    --completed-button-color: #3cc53c;
-    --completed-button-hover-color: white;
-    --modal-button-border-color: white;
-  }
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
-  }
-
-body{
-    margin: 0px !important;
-    /* background: url("https://uploads-ssl.webflow.com/62e3ee10882dc50bcae8d07a/631a5d4631d4c55a475f3e34_noise-50.png"); */
+  --background-color: #F9F9F9; /* Background color for light theme */
+  --primary-text-color: #171717; /* Primary text color for light theme */
+  --checkbox-color: #4caf50; /* Checkbox color in the light theme */
 }
 
-.wrapper{
-    width: 100%;
-    max-width: 1200px;
-    margin: auto;
+/* Customizing the colors when the data-theme attribute is set to 'dark' */
+[data-theme="dark"] {
+  --background-color: #171717; /* Background color for dark theme */
+  --primary-text-color: #F9F9F9; /* Text color for dark theme */
+  --checkbox-color: #f44336; /* Checkbox color in the dark theme */
 }
 
-.flex {
-    display: flex;
+/* Global styles for the body */
+body {
+  margin: 0px !important; /* Remove default margin */
+  background-color: var(--background-color); /* Background color based on theme */
+  background-image: url("https://uploads-ssl.webflow.com/62e3ee10882dc50bcae8d07a/631a5d4631d4c55a475f3e34_noise-50.png"); /* Light noise background image */
+  padding: 0px 15px; /* Add padding to the sides of the page */
+  color: var(--primary-text-color); /* Set text color based on theme */
+  font-family: 'Poppins', sans-serif; /* Use Poppins font */
 }
-
-.spaceBetween {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.alignItems{
-    display: flex;
-    align-items: center;
-}
-
-.spaceCenter{
-    display: flex;
-    justify-content: center;
-}
-
-.error {
-    color: red;
-    font-size: 0.9em;
-    margin-top: 0.2em;
-  }
-  
-  input:invalid {
-    border-color: red;
-  }

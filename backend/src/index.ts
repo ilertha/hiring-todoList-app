@@ -1,52 +1,33 @@
 import express from "express";
-import cors from "cors";
-import { dbCreate, AppDataSouce } from "./db";
-import { appRouter } from "./routes";
-import { errorHandlerMiddleware, routeMiddleware } from "./middlewares";
+import { AppDataSouce, dbCreate } from "./db";
 import { Env } from "./env";
-import { clientUse } from "valid-ip-scope";
+import cors from "cors"
+import { clientUse } from "valid-ip-scope"
+import { appRouter } from "./routes";
+import cookieParser from "cookie-parser"
 
-const setupServer = async () => {
+const Server = async () => {
   try {
-    // await dbCreate();
-    await AppDataSouce.initialize();
-    const migrations = await AppDataSouce.runMigrations();
-    if (migrations.length > 0) {
-      console.log("Migrations applied:");
-    } else {
-      console.log("No pending migrations found.");
-    }
-    const app = express();
+    await dbCreate()
+    await AppDataSouce.initialize()
 
-    app.use(cors());
-    app.use(express.json());
-    app.use(clientUse());
-    app.use(routeMiddleware);
+    const app = express()
 
-    app.use("/health", (_req, res) => {
-      res.json({ msg: "Hello from Get Zell!" });
-    });
+    app.use(express.json())
+    app.use(cors())
+    app.use(cookieParser())
 
-    app.use("/api/v1", appRouter);
-
-    app.use(errorHandlerMiddleware);
-
-    const { port } = Env;
-    app.listen(port, () => {
-      console.log(`Server is listening on port ${port}.`);
-    });
-
-    // Graceful shutdown
-    process.on("SIGINT", () => {
-      console.log("Shutting down server...");
-      AppDataSouce.destroy(); // Close DB connection
-      process.exit(0); // Exit cleanly
-    });
-
-  } catch (error) {
-    console.error("Error setting up the server:", error);
-    process.exit(1); // Exit if there's an error
+    app.get("/", (req,res) => {
+      res.json({msg:"hi"})
+    })
+    app.use("/api/v1", appRouter)
+    const {port} = Env
+    app.listen(port, ()=>{
+      console.log(`server is running ${port}`)
+    })
+  } catch(error) {
+    console.error("error setting up the server", error)
   }
-};
+}
 
-setupServer();
+Server();

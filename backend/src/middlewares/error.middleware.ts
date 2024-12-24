@@ -2,25 +2,24 @@ import { ArgumentValidationError, CustomError } from "../errors";
 import { Logger } from "../utils";
 import { NextFunction, Request, Response } from "express";
 
-export const errorHandlerMiddleware = (
-  error: unknown,
-  _req: Request,
-  res: Response,
-  _next: NextFunction
+export const errorHanlderMiddleware = (
+  error:unknown,
+  req: Request,
+  res:Response,
+  next: NextFunction
 ) => {
-  Logger.error(JSON.stringify(error));
+  Logger.error(JSON.stringify(error))
 
-  if (error instanceof CustomError) {
+  if(error instanceof CustomError) {
     if(error instanceof ArgumentValidationError) {
       res.status(error.errorCode).json({
-        message: error.message,
-        messages: error.messages
+        message:error.message,
+        messages:error.messages
       })
     }
     else res.status(error.errorCode).json({
-      message: error.message,
-    });
+      message: error.message
+    })
   }
-
   return;
-};
+}

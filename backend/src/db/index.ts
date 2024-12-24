@@ -1,2 +1,2 @@
-export * from "./db.create";
-export * from "./db.setup";
+export * from "./db.create"
+export * from "./db.setup"

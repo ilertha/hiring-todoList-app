@@ -2,7 +2,7 @@ import { Router } from "express";
 import { AuthValidator } from "../validators";
 import { AuthController } from "../controllers";
 
-export const authRouter = Router();
+export const authRouter = Router()
 
 authRouter.post(
   "/register",
@@ -14,9 +14,4 @@ authRouter.post(
   "/login",
   AuthValidator.loginValidator(),
   AuthController.loginController
-);
-
-authRouter.get(
-  "/logout",
-  AuthController.logoutController
-);
+)

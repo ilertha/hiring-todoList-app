@@ -55,24 +55,25 @@ Follow the steps below to set up and run the application locally.
         Navigate to the frontend directory and install the dependencies:
         ```bash
         cd frontend
-        npm install --force
+        npm install
         ```
 3. **Set Up Environment Variables**:
     Create a ```.env``` file in the backend directory. You can refer to the ```.env.example``` file for a template.
     ```.env``` Configuration Example:
     ```env
-    DB_TYPE = "mysql"
-    DB_HOST = "localhost"
-    DB_USERNAME = "root"
-    DB_PASSWORD = ""
-    DB_PORT = 3306
-    DB_NAME = "todo_list"
-    PORT = 8000
-    SECRET_KEY = "todo_list"
-    EXPIRE_TIME = 3600
+        DB_TYPE = "mysql"
+        DB_HOST = "localhost"
+        DB_USERNAME = "root"
+        DB_PASSWORD = 
+        DB_PORT = 3306
+        DB_NAME = "base_admin"
+        PORT = 8000
+        SECRET_KEY = "base_admin"
+        EXPIRE_TIME = 3600
+
     ```
     - ```DB_PASSWORD```: Set your MySQL root password if applicable.
-    - ```DB_NAME```: The name of the database (you can create a database named ```todo_list``` in MySQL).
+    - ```DB_NAME```: The name of the database (you can create a database named ```base_admin``` in MySQL).
 4. **Set Up MySQL**:
     If you're using XAMPP:
     - Install **XAMPP v3.3.0** (or the latest version).
@@ -84,11 +85,9 @@ Follow the steps below to set up and run the application locally.
 
 1. **Start the backend server**:
     Navigate to the ```backend``` directory and run the following commands:
-    You should run ```npm run db``` only one time at first. 
 
     ```bash
     cd backend
-    npm run db
     npm run dev
     ```
 
@@ -108,9 +107,25 @@ Follow the steps below to set up and run the application locally.
     http://localhost:3000
     ```
 
-3. **Test the Application**:
-    Once both the frontend and backend are running, you can interact with the app through your browser:
+3. **Filter Tasks with DataGrid**:
+    The app leverages Material-UI's DataGrid component to allow for flexible task filtering. To filter tasks:
+    - Access the DataGrid interface by navigating to the task management page.
+    - Use the column headers to apply filters directly to the task list. For example:
+        - **Completed**: Filtering tasks marked as "True" or "False".
+        - **Task Name**: Input keywords to locate specific tasks.
+        - **Task Description**: Input keywords to locate specific description.
+    - Adjust filters dynamically to explore your tasks efficiently. 
 
-    - Create new tasks, edit them, and delete them.
-    - Register an account or log in to access task management features.
-    - Switch between light and dark modes.
+4. **Test the Application**:
+    Navigate to the ```backend``` directory and run:
+
+    ```bash
+    cd backend
+    npm test
+    npm run test:watch
+    npm run test:coverage
+    npm run test:controllers
+    npm run test:services
+
+
+    This will start the test  backend server. 

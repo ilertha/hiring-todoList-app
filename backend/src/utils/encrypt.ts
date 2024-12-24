@@ -1,5 +1,5 @@
-import bcryptUtils from "bcryptjs";
+import bcryptUtils from "bcryptjs"
 
-export const encryptPassword = async (password) => {
-  return await bcryptUtils.hash(password, 8);
-};
+export const encryptPassword = async (password : string) => {
+  return await bcryptUtils.hash(password,8)
+}

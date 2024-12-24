@@ -1,0 +1,158 @@
+import axios, { AxiosInstance } from 'axios';
+
+// Types
+interface List {
+  uuid: string;
+  title: string;
+  description?: string;
+  important: boolean;
+  completed: boolean;
+  duedate?: Date;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+interface CreateListDTO {
+  title: string;
+  description?: string;
+  important?: boolean;
+  completed?: boolean;
+  duedate?: Date;
+}
+
+interface UpdateListDTO {
+  title?: string;
+  description?: string;
+  important?: boolean;
+  completed?: boolean;
+  duedate?: Date;
+}
+
+class ListAPI {
+  private api: AxiosInstance;
+
+  constructor() {
+    this.api = axios.create({
+      baseURL: process.env.REACT_APP_API_URL || 'http://localhost:3000/api',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    // Add token to every request
+    this.api.interceptors.request.use((config) => {
+      const token = localStorage.getItem('token');
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+      return config;
+    });
+  }
+
+  // Create a new list
+  async createList(data: CreateListDTO): Promise<List> {
+    try {
+      const response = await this.api.post<List>('/lists', data);
+      return response.data;
+    } catch (error) {
+      throw this.handleError(error);
+    }
+  }
+
+  // Get all lists
+  async getAllLists(): Promise<List[]> {
+    try {
+      const response = await this.api.get<List[]>('/lists');
+      return response.data;
+    } catch (error) {
+      throw this.handleError(error);
+    }
+  }
+
+  // Get a specific list
+  async getListById(id: string): Promise<List> {
+    try {
+      const response = await this.api.get<List>(`/lists/${id}`);
+      return response.data;
+    } catch (error) {
+      throw this.handleError(error);
+    }
+  }
+
+  // Update a list
+  async updateList(id: string, data: UpdateListDTO): Promise<List> {
+    try {
+      const response = await this.api.put<List>(`/lists/${id}`, data);
+      return response.data;
+    } catch (error) {
+      throw this.handleError(error);
+    }
+  }
+
+  // Delete a list
+  async deleteList(id: string): Promise<void> {
+    try {
+      await this.api.delete(`/lists/${id}`);
+    } catch (error) {
+      throw this.handleError(error);
+    }
+  }
+
+  // Get important lists
+  async getImportantLists(): Promise<List[]> {
+    try {
+      const response = await this.api.get<List[]>('/lists/important');
+      return response.data;
+    } catch (error) {
+      throw this.handleError(error);
+    }
+  }
+
+  // Get completed lists
+  async getCompletedLists(): Promise<List[]> {
+    try {
+      const response = await this.api.get<List[]>('/lists/completed');
+      return response.data;
+    } catch (error) {
+      throw this.handleError(error);
+    }
+  }
+
+  // Toggle list completion
+  async toggleListComplete(id: string): Promise<List> {
+    try {
+      const response = await this.api.patch<List>(`/lists/${id}/toggle-complete`);
+      return response.data;
+    } catch (error) {
+      throw this.handleError(error);
+    }
+  }
+
+  // Toggle list importance
+  async toggleListImportance(id: string): Promise<List> {
+    try {
+      const response = await this.api.patch<List>(`/lists/${id}/toggle-importance`);
+      return response.data;
+    } catch (error) {
+      throw this.handleError(error);
+    }
+  }
+
+  // Error handler
+  private handleError(error: any): Error {
+    if (axios.isAxiosError(error)) {
+      // Handle Axios errors
+      const message = error.response?.data?.message || error.message;
+      if (error.response?.status === 401) {
+        // Handle unauthorized error (e.g., redirect to login)
+        localStorage.removeItem('token');
+        window.location.href = '/login';
+      }
+      return new Error(message);
+    }
+    return error;
+  }
+}
+
+// Export singleton instance
+export const listAPI = new ListAPI();

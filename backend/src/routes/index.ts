@@ -1,7 +1,8 @@
 import { authRouter } from "./authRouter";
+import { listRouter } from "./listRouter";
 import { Router } from "express";
-import { todoListRouter } from "./todoListRouter";
-export const appRouter = Router();
 
-appRouter.use("/auth", authRouter);
-appRouter.use("/todoList", todoListRouter)
+export const appRouter = Router()
+
+appRouter.use('/auth',authRouter)
+appRouter.use('/list',listRouter)

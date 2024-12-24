@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "types":["jest","node"],
     "target": "es6",
     "module": "commonjs",
     "moduleResolution": "node",
@@ -25,10 +26,17 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "noFallthroughCasesInSwitch": false,
+    "typeRoots": [
+      "./types",
+      "./node_modules/@types"
+    ]
   },
   "ts-node": {
     "require": []
   },
-  "include": ["src/**/*"],
+  "include": [
+    "src/**/*",
+    "src/**/*.d.ts"
+  ],
   "exclude": ["node_modules"]
 }

@@ -1,2 +1,1 @@
-export * as AuthController from "./Auth";
-export * as TodoListController from "./TodoList"
+export * as AuthController from "./Auth"
