@@ -41,7 +41,7 @@ Follow the steps below to set up and run the application locally.
     Clone the repository to your local machine:
 
     ```bash
-    git clone https://github.com/rizzolib/hiring-todo-list-app
+    git clone https://github.com/ilertha/hiring-todo-list-app
     cd hiring-todo-list-app
     ```
 2. **Install dependencies**:
